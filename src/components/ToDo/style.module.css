@@ -1,0 +1,19 @@
+.close {
+  float: right;
+  padding: 2px 5px;
+  color: rgba(175, 47, 47, 0.2);
+}
+
+.close:hover {
+  color: #cc9a9a;
+  cursor: pointer;
+}
+
+.toggle {
+  margin-right: 20px;
+}
+
+.toggle:checked + span{
+  text-decoration: line-through;
+  color: #d9d9d9;
+}

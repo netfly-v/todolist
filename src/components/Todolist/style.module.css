@@ -1,0 +1,88 @@
+body {
+  background-color: lightgray;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  width: 550px;
+}
+
+.text {
+  font-size: 100px;
+}
+
+header.text {
+  font-weight: 100;
+  color: #af2f2f26;
+}
+
+.footer {
+  display: flex;
+  color: #777;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 10px;
+}
+
+.footer .links {
+  padding: 0 50px;
+}
+
+.footer a {
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: inherit;
+  margin: 3px;
+  padding: 3px 7px;
+}
+
+.footer a.selected {
+  border-color: rgba(175, 47, 47, 0.2);
+}
+
+.footer a:hover {
+  border-color: rgba(175, 47, 47, 0.1);
+}
+
+button {
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
+  font-size: 100%;
+}
+
+.clearCompleted {
+  cursor: pointer;
+  border: transparent;
+  background: none;
+}
+
+.clearCompleted:hover {
+  text-decoration: underline;
+}
+
+.todo {
+  background-color: #fff;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+
+.item {
+  padding: 15px 15px 15px 20px;
+  font-size: 24px;
+  font-weight: 300;
+  color: #4d4d4d;
+  border-bottom: 1px solid #ededed;
+}
