@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './style.css';
 
-export const AddToDo = ({ addItem }) => {
+export const AddToDo = ({ generateItem, addItem }) => {
   const [inputValue, setInputValue] = useState('');
 
   return (

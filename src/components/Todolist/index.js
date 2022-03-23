@@ -3,6 +3,7 @@ import { AddToDo } from '../AddToDo';
 import { ToDo } from '../ToDo';
 import styles from './style.module.css';
 import { v4 as uuid } from 'uuid';
+import { storage } from '../../utils/localstorage';
 
 const generateItem = (name, isCompleted = false) => ({
   name,
@@ -16,24 +17,32 @@ const TYPE = {
   COMPLETED: 'COMPLETED',
 };
 
+const TODOS_STORAGE = 'TODOS_STORAGE';
+
 export const Todolist = () => {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(storage.has(TODOS_STORAGE) ? storage.get(TODOS_STORAGE) : []);
   const [type, setType] = useState(TYPE.ALL);
 
+  const updateItems = updatedItems => {
+    setItems(updatedItems);
+    storage.set(TODOS_STORAGE, updatedItems);
+  };
+
+  const clearAllItems = () => {
+    setItems([]);
+    storage.delete(TODOS_STORAGE);
+  };
+
   const addItem = value => {
-    setItems([...items, generateItem(value)]);
+    updateItems([...items, generateItem(value)]);
   };
 
   const deleteItem = deleteId => {
-    setItems(items.filter(item => item.id !== deleteId));
+    updateItems(items.filter(item => item.id !== deleteId));
   };
 
   const toggleCompleted = (isChecked, toggleId) => {
-    setItems(items.map(item => (item.id === toggleId ? { ...item, isCompleted: isChecked } : item)));
-  };
-
-  const clearAllCompleted = () => {
-    setItems(items.filter(item => !item.isCompleted));
+    updateItems(items.map(item => (item.id === toggleId ? { ...item, isCompleted: isChecked } : item)));
   };
 
   const renderToDos = itemsByType =>
@@ -60,7 +69,7 @@ export const Todolist = () => {
     <div className={styles.wrapper}>
       <header className={styles.text}>todos</header>
       <div className={styles.content}>
-        <AddToDo addItem={addItem} />
+        <AddToDo addItem={addItem} generateItem={generateItem} />
         <div className={styles.todo}>
           <ul className={styles.list}>{renderToDosByType()}</ul>
           <footer className={styles.footer}>
@@ -73,10 +82,16 @@ export const Todolist = () => {
               <button onClick={() => setType(TYPE.COMPLETED)}>Completed</button>
             </div>
             <button
-              onClick={() => setItems(items.filter(item => !item.isCompleted))}
+              onClick={() => updateItems(items.filter(item => !item.isCompleted))}
               className={styles.clearCompleted}
             >
               Clear completed
+            </button>
+            <button
+              onClick={clearAllItems}
+              className={styles.clearCompleted}
+            >
+              Clear all
             </button>
           </footer>
         </div>

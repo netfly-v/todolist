@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './style.module.css';
 
-export const ToDo = ({ item, deleteItem, toggleCompleted }) => {
+export const ToDo = ({ item, localStorageItems, deleteItem, toggleCompleted }) => {
   const [checked, setChecked] = useState(item.isCompleted);
 
   return (
