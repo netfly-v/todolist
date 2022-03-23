@@ -32,6 +32,10 @@ export const Todolist = () => {
     setItems(items.map(item => (item.id === toggleId ? { ...item, isCompleted: isChecked } : item)));
   };
 
+  const clearAllCompleted = () => {
+    setItems(items.filter(item => !item.isCompleted));
+  };
+
   const renderToDos = itemsByType =>
     itemsByType.map(item => (
       <li className={styles.item} key={item.id}>
@@ -68,7 +72,12 @@ export const Todolist = () => {
               <button onClick={() => setType(TYPE.ACTIVE)}>Active</button>
               <button onClick={() => setType(TYPE.COMPLETED)}>Completed</button>
             </div>
-            <button className={styles.clearCompleted}>Clear completed</button>
+            <button
+              onClick={() => setItems(items.filter(item => !item.isCompleted))}
+              className={styles.clearCompleted}
+            >
+              Clear completed
+            </button>
           </footer>
         </div>
       </div>
