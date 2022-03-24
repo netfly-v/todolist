@@ -45,6 +45,10 @@ export const Todolist = () => {
     updateItems(items.map(item => (item.id === toggleId ? { ...item, isCompleted: isChecked } : item)));
   };
 
+  const completeAll = (isCompleted) => {
+    updateItems(items.map(item => ({ ...item, isCompleted})))
+  }
+
   const renderToDos = itemsByType =>
     itemsByType.map(item => (
       <li className={styles.item} key={item.id}>
@@ -69,32 +73,31 @@ export const Todolist = () => {
     <div className={styles.wrapper}>
       <header className={styles.text}>todos</header>
       <div className={styles.content}>
-        <AddToDo addItem={addItem} generateItem={generateItem} />
-        <div className={styles.todo}>
-          <ul className={styles.list}>{renderToDosByType()}</ul>
-          <footer className={styles.footer}>
-            <div>{items.length} items left</div>
-            <div className={styles.links}>
-              <button onClick={() => setType(TYPE.ALL)} className={styles.selected}>
-                All
+        <AddToDo addItem={addItem} generateItem={generateItem} completeAll={completeAll}/>
+        {items.length ? (
+          <div className={styles.todo}>
+            <ul className={styles.list}>{renderToDosByType()}</ul>
+            <footer className={styles.footer}>
+              <div>{items.length} items left</div>
+              <div className={styles.links}>
+                <button onClick={() => setType(TYPE.ALL)} className={styles.selected}>
+                  All
+                </button>
+                <button className={styles.toggleItems} onClick={() => setType(TYPE.ACTIVE)}>Active</button>
+                <button className={styles.toggleItems} onClick={() => setType(TYPE.COMPLETED)}>Completed</button>
+              </div>
+              {items.some(item => item.isCompleted === true) ? (<button
+                onClick={() => updateItems(items.filter(item => !item.isCompleted))}
+                className={styles.clearCompleted}
+              >
+                Clear completed
+              </button>) : null}
+              <button onClick={clearAllItems} className={styles.clearCompleted}>
+                Clear all
               </button>
-              <button onClick={() => setType(TYPE.ACTIVE)}>Active</button>
-              <button onClick={() => setType(TYPE.COMPLETED)}>Completed</button>
-            </div>
-            <button
-              onClick={() => updateItems(items.filter(item => !item.isCompleted))}
-              className={styles.clearCompleted}
-            >
-              Clear completed
-            </button>
-            <button
-              onClick={clearAllItems}
-              className={styles.clearCompleted}
-            >
-              Clear all
-            </button>
-          </footer>
-        </div>
+            </footer>
+          </div>
+        ) : null}
       </div>
     </div>
   );

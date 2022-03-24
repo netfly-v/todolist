@@ -35,20 +35,18 @@ header.text {
   padding: 0 50px;
 }
 
-.footer a {
+.footer button:not(.clearCompleted) {
   text-decoration: none;
   border: 1px solid transparent;
   border-radius: 3px;
   color: inherit;
-  margin: 3px;
-  padding: 3px 7px;
 }
 
-.footer a.selected {
+.footer button.selected {
   border-color: rgba(175, 47, 47, 0.2);
 }
 
-.footer a:hover {
+.footer button:hover {
   border-color: rgba(175, 47, 47, 0.1);
 }
 
@@ -57,6 +55,9 @@ button {
   font-weight: inherit;
   color: inherit;
   font-size: 100%;
+  cursor: pointer;
+  border: transparent;
+  background: none;
 }
 
 .clearCompleted {
